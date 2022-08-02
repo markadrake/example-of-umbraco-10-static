@@ -1,4 +1,5 @@
-const { readdirSync, rmSync } = require("fs");
+const { readdirSync, rmSync } = require("fs"),
+	path = require("path");
 
 /* 
 	Clean the data directory
