@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+{
+	"name": "@Model.Name",
+	"id": @Model.Id,
+	"key": "@Model.Key",
+	"level": @Model.Level,
+	"url": "@Model.Url()",
+	"createdDate": "@Model.CreateDate.ToIsoString()",
+@*@Html.Partial("~/views/Compositions/hasSEO.cshtml")*@
+@Html.Partial("~/views/Compositions/hasBlockBuilder.cshtml")
+}

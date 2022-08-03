@@ -1,3 +1,5 @@
+using Umbraco.Cms.Web.Website.Controllers;
+
 namespace UmbracoCMS
 {
     public class Startup
@@ -34,6 +36,11 @@ namespace UmbracoCMS
                 .AddWebsite()
                 .AddComposers()
                 .Build();
+
+            services.Configure<UmbracoRenderingDefaultsOptions>(c =>
+            {
+                c.DefaultControllerType = typeof(JsonRenderController);
+            });				
         }
 
         /// <summary>

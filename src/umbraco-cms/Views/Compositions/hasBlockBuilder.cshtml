@@ -1,0 +1,10 @@
+@using Umbraco.Cms.Core.Models.Blocks
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	if(!Model.IsComposedOf("hasBlockBuilder")) {
+		return;
+	}
+}
+	"blockBuilder": [
+@Html.GetBlockListHtml(Model, "content")
+	],

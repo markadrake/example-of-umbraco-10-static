@@ -23,11 +23,16 @@
 
   <ItemGroup>
     <Folder Include="wwwroot" />
+    <Folder Include="Views\Properties\" />
   </ItemGroup>
 
   <!-- Keep this as false if ModelsBuilder mode is InMemoryAuto -->
+  <ItemGroup>
+    <None Remove="Views\Properties\" />
+  </ItemGroup>
   <PropertyGroup>
     <RazorCompileOnBuild>false</RazorCompileOnBuild>
     <RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Umbraco.Web.UI' " />
 </Project>

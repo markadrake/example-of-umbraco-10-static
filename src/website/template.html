@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{Content.Properties.title}}</title>
+	<meta name="description" content="{{Content.Properties.description}}">
+	<link rel="stylesheet" href="/design/critical.min.css">
+</head>
+<body>
+
+	<header>
+		<nav>
+			<ul>
+				<!-- Foreach: Content.Properties.settingsNavigation.contentData -->
+				<li>
+					<a href="{{link.url}}">{{link.name}}</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<h1>{{Content.Properties.title}}</h1>
+	
+		<!-- Foreach: Content.Properties.content.contentData -->
+		<section class="contentTypeAlias" data-key="{{contentTypeKey}}" data-udi="{{udi}}">
+			{{copy}}
+			{{image}}
+		</section>	
+	</main>
+
+	<footer>
+
+	</footer>
+	
+	<link rel="stylesheet" href="/design/styles.min.css">
+</body>
+</html>
