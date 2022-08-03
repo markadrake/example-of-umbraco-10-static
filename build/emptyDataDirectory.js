@@ -1,8 +1,16 @@
-const { readdirSync, rmSync } = require("fs"),
+const { mkdirSync, rmSync } = require("fs"),
 	path = require("path");
 
 /* 
 	Clean the data directory
 */
 const dataPath = path.resolve("./data");
-readdirSync(dataPath).forEach(f => rmSync(`${dataPath}/${f}`));
+try {
+	rmSync(dataPath, { recursive: true });
+} catch (e) {}
+
+/*
+	Make sure folders exist
+*/
+mkdirSync("data/content", { recursive: true });
+mkdirSync("data/media", { recursive: true });

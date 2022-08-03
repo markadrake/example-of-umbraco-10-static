@@ -1,7 +1,7 @@
 const glob = require("glob"),
 	xml2js = require("xml2js"),
 	path = require("path"),
-	{ readFileSync, writeFileSync, readdirSync, rmSync } = require("fs");
+	{ readFileSync, writeFileSync, mkdir, readdirSync, rmSync, mkdirSync } = require("fs");
 
 const parseString = xml2js.parseString;
 
@@ -18,11 +18,11 @@ glob(path.join(uSyncFilePath, uSyncContentPath, "*.config"), (error, foundFiles)
 		return;
 	}
 
-	// Transform each file from XML to JSON
+	// Transform each file from XML to JSON	
 	foundFiles.forEach(file => {
 		parseString(readFileSync(file), function (err, result) {
 			let filename = path.basename(file, path.extname(file));
-			writeFileSync(`./data/${filename}.json`, JSON.stringify(result, null, 3));
+			writeFileSync(`./data/content/${filename}.json`, JSON.stringify(result, null, 3));
 		});
 	});
 });
