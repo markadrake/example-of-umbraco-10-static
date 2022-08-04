@@ -1,10 +1,12 @@
-const glob = require("glob"),
-	path = require("path"),
-	fs = require("fs");
+import glob from "glob";
+import path from "path";
+import fs from "fs";
+import camelcase from "camelcase";
+
 /*
 	Clean up our JSON.
  */
-const jsonFilePath = "./data/content";
+const jsonFilePath = "./data/usync/";
 glob(path.join(jsonFilePath, "*.json"), (error, foundFiles) => {
 	// Exit: an error has occured
 	if (error) {
@@ -13,26 +15,51 @@ glob(path.join(jsonFilePath, "*.json"), (error, foundFiles) => {
 	}
 
 	// Clean up JSON data
-	foundFiles.forEach(file => {
-		let data = JSON.parse(fs.readFileSync(file)),
-			cleanProperties = {};
-		const properties = data.Content.Properties[0] || null;
+	let i = 0;
+	foundFiles.forEach(file => {		
+		if (i) return;
+		i++;
 
-		if(properties) {
-
-			Object.keys(properties).forEach(key => {
-				try {
-					cleanProperties[key] = JSON.parse(properties[key][0].Value[0]);
-				} catch (e) {
-					cleanProperties[key] = properties[key][0].Value[0];
-				}
-			});
-
-			data.Content.Properties = cleanProperties;
-			fs.writeFileSync(file, JSON.stringify(data, null, 3));
-
-		}
-		
+		let data = JSON.parse(fs.readFileSync(file));
+		data = traverse(data);
+		fs.writeFileSync(file, JSON.stringify(data, null, 3));		
 	});
 
 });
+
+function traverse(o) {
+
+	// Traverse arrays
+	if(o instanceof Array) {
+		let newO = [];
+
+		o.forEach((value, index) => {
+			newO.push(traverse(value));
+		});
+
+		return newO;
+	}
+
+	// Traverse objects, normalize keys
+	if(o instanceof Object) {
+		let newO = {};
+
+		Object.keys(o).forEach((key) => {
+			newO[camelcase(key)] = traverse(o[key]);
+		});
+
+		return newO;
+	}
+
+	// Try to parse strings into JSON data
+	if(typeof o === "string") {
+		try {
+			let newO = JSON.parse(o);
+			return traverse(newO);
+		} catch (e) {
+			return o;
+		}
+	}
+
+	return o;
+}

@@ -18,14 +18,29 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Web Site Settings</summary>
-	[PublishedModel("webSiteSettings")]
-	public partial class WebSiteSettings : PublishedContentModel
+	// Mixin Content Type with alias "hasSocial"
+	/// <summary>Has Social</summary>
+	public partial interface IHasSocial : IPublishedElement
+	{
+		/// <summary>Open Graph</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string OpenGraph { get; }
+
+		/// <summary>Twitter</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string Twitter { get; }
+	}
+
+	/// <summary>Has Social</summary>
+	[PublishedModel("hasSocial")]
+	public partial class HasSocial : PublishedElementModel, IHasSocial
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
-		public new const string ModelTypeAlias = "webSiteSettings";
+		public new const string ModelTypeAlias = "hasSocial";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
@@ -34,14 +49,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 			=> PublishedModelUtility.GetModelContentType(publishedSnapshotAccessor, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<WebSiteSettings, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedSnapshotAccessor publishedSnapshotAccessor, Expression<Func<HasSocial, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(publishedSnapshotAccessor), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public WebSiteSettings(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public HasSocial(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,19 +65,29 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
-		/// Social Media Properties
+		/// Open Graph
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("properties")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel Properties => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "properties");
+		[ImplementPropertyType("openGraph")]
+		public virtual string OpenGraph => GetOpenGraph(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Open Graph</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetOpenGraph(IHasSocial that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "openGraph");
 
 		///<summary>
-		/// Navigation: (Recommended) Help visitors find content quickly and easily. These links will be featured in the header of the site.
+		/// Twitter
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("settingsNavigation")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel SettingsNavigation => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "settingsNavigation");
+		[ImplementPropertyType("twitter")]
+		public virtual string Twitter => GetTwitter(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Twitter</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetTwitter(IHasSocial that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "twitter");
 	}
 }

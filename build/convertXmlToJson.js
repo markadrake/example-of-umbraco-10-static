@@ -1,7 +1,7 @@
-const glob = require("glob"),
-	xml2js = require("xml2js"),
-	path = require("path"),
-	{ readFileSync, writeFileSync, mkdir, readdirSync, rmSync, mkdirSync } = require("fs");
+import glob from "glob";
+import xml2js from "xml2js";
+import path from "path";
+import { readFileSync, writeFileSync, mkdir, readdirSync, rmSync, mkdirSync, readFile } from "fs";
 
 const parseString = xml2js.parseString;
 
@@ -9,9 +9,8 @@ const parseString = xml2js.parseString;
 	Find all uSync content on disk, and parse it into JSON.
 */
 const uSyncFilePath = "../src/umbraco-cms/uSync/v9";
-const uSyncContentPath = "/content";
 
-glob(path.join(uSyncFilePath, uSyncContentPath, "*.config"), (error, foundFiles) => {
+glob(path.join(uSyncFilePath, "**/*.config"), (error, foundFiles) => {
 	// Exit: an error has occured
 	if (error) {
 		console.log(error);
@@ -21,8 +20,37 @@ glob(path.join(uSyncFilePath, uSyncContentPath, "*.config"), (error, foundFiles)
 	// Transform each file from XML to JSON	
 	foundFiles.forEach(file => {
 		parseString(readFileSync(file), function (err, result) {
-			let filename = path.basename(file, path.extname(file));
-			writeFileSync(`./data/content/${filename}.json`, JSON.stringify(result, null, 3));
+			let filename = "";
+
+			if(result.Content) {
+				filename = `${result.Content.$.Key}.json`;
+				writeFileSync(`./data/usync/${filename}`, JSON.stringify(result.Content, null, 3));
+			}
+
+			// if(result.DataType) {
+			// 	filename = `${result.DataType.$.Key}.json`;
+			// 	writeFileSync(`./data/usync/${filename}`, JSON.stringify(result.DataType, null, 3));
+			// }
+
+			// if(result.Language) {
+			// 	filename = `${result.Language.$.Key}.json`;
+			// 	writeFileSync(`./data/usync/${filename}`, JSON.stringify(result.Language, null, 3));
+			// }
+
+			// if(result.Media) {
+			// 	filename = `${result.Media.$.Key}.json`;
+			// 	writeFileSync(`./data/usync/${filename}`, JSON.stringify(result.Media, null, 3));
+			// }
+
+			// if(result.MediaType) {
+			// 	filename = `${result.MediaType.$.Key}.json`;
+			// 	writeFileSync(`./data/usync/${filename}`, JSON.stringify(result.MediaType, null, 3));
+			// }
+
+			// if(result.Template) {
+			// 	filename = `${result.Template.$.Key}.json`;
+			// 	writeFileSync(`./data/usync/${filename}`, JSON.stringify(result.Template, null, 3));
+			// }
 		});
 	});
 });

@@ -20,7 +20,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 {
 	/// <summary>Web Site</summary>
 	[PublishedModel("webSite")]
-	public partial class WebSite : PublishedContentModel, IHasBlockBuilder, IHasSeo
+	public partial class WebSite : PublishedContentModel, IHasBlockBuilder, IHasSeo, IHasSocial
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -80,5 +80,21 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("title")]
 		public virtual string Title => global::Umbraco.Cms.Web.Common.PublishedModels.HasSeo.GetTitle(this, _publishedValueFallback);
+
+		///<summary>
+		/// Open Graph
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("openGraph")]
+		public virtual string OpenGraph => global::Umbraco.Cms.Web.Common.PublishedModels.HasSocial.GetOpenGraph(this, _publishedValueFallback);
+
+		///<summary>
+		/// Twitter
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.0.1+fd0c4fd")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("twitter")]
+		public virtual string Twitter => global::Umbraco.Cms.Web.Common.PublishedModels.HasSocial.GetTwitter(this, _publishedValueFallback);
 	}
 }

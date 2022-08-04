@@ -1,5 +1,5 @@
-const { mkdirSync, rmSync } = require("fs"),
-	path = require("path");
+import { mkdirSync, rmSync } from "fs";
+import path from "path";
 
 /* 
 	Clean the data directory
@@ -14,3 +14,4 @@ try {
 */
 mkdirSync("data/content", { recursive: true });
 mkdirSync("data/media", { recursive: true });
+mkdirSync("data/usync", { recursive: true });
