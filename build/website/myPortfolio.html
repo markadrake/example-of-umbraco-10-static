@@ -3,8 +3,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{properties.[0].title}}</title>
-	<meta name="description" content="{{properties.[0].description}}">
+	<title></title>
+	<meta name="description" content="An example portfolio, not by Mark Drake.">
 	<link rel="stylesheet" href="/design/critical.min.css">
 </head>
 <body>
@@ -14,24 +14,22 @@
 			<ul>
 				<!-- Foreach: Content.Properties.settingsNavigation.contentData -->
 				<li>
-					<a href="{{link.url}}">{{link.name}}</a>
+					<a href=""></a>
 				</li>
 			</ul>
 		</nav>
 	</header>
 
 	<main>
-		<h1>{{properties.[0].title}}</h1>
+		<h1></h1>
 	
-		{{#each properties.[0].content.contentData}}
 		<section class="contentTypeAlias" 
-			data-key="{{contentTypeKey}}" 
-			data-udi="{{udi}}">
-			{{label}}
-			{{{copy}}}
-			{{image}}
+			data-key="bf45efa1-eb84-4933-a0c4-4a3d3082256f" 
+			data-udi="umb://element/58a698c29f854bf5b4b21f0b5b9b6853">
+			Portfolio
+			<p style="text-align: center;"><strong>Portfolio</strong></p>
+			
 		</section>	
-		{{/each}}
 	</main>
 
 	<footer>

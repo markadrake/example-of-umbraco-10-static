@@ -15,11 +15,7 @@ glob(path.join(jsonFilePath, "*.json"), (error, foundFiles) => {
 	}
 
 	// Clean up JSON data
-	let i = 0;
 	foundFiles.forEach(file => {		
-		if (i) return;
-		i++;
-
 		let data = JSON.parse(fs.readFileSync(file));
 		data = traverse(data);
 		fs.writeFileSync(file, JSON.stringify(data, null, 3));		
@@ -33,6 +29,12 @@ function traverse(o) {
 	if(o instanceof Array) {
 		let newO = [];
 
+		// Remove nested arrays and objects
+		if(o.length == 1 && o[0].value && o[0].value.length == 1) {
+			return o[0].value[0];
+		}
+
+		// Traverse array
 		o.forEach((value, index) => {
 			newO.push(traverse(value));
 		});
@@ -44,6 +46,7 @@ function traverse(o) {
 	if(o instanceof Object) {
 		let newO = {};
 
+		// Normalize key
 		Object.keys(o).forEach((key) => {
 			newO[camelcase(key)] = traverse(o[key]);
 		});
