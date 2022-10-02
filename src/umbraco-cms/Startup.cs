@@ -36,11 +36,6 @@ namespace UmbracoCMS
                 .AddWebsite()
                 .AddComposers()
                 .Build();
-
-            services.Configure<UmbracoRenderingDefaultsOptions>(c =>
-            {
-                c.DefaultControllerType = typeof(JsonRenderController);
-            });				
         }
 
         /// <summary>
